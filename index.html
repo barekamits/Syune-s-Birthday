@@ -2,6 +2,7 @@
 <html lang="hy">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Կայքի ֆոն</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -87,15 +88,6 @@
     object-fit: contain;
     z-index: 2;
   }
-    /* --- ՄՈԲԱՅԼԻ ՀԱՄԱՐ ՓՈՓՈԽՎԱԾ ԴԻՐՔ --- */
-  @media (max-width: 360px) {
-    .bottom-img {
-      top: 60%;              /* <-- սա փոխիր, որպեսզի բարձրացնես/իջեցնես kamar-ը մոբայլում */
-      bottom: auto;           /* հեռացրինք "bottom:0"-ն, որ top-ը միանշանակ աշխատի */
-      max-height: 55%;        /* կարող ես մեծացնել/փոքրացնել kamar-ի չափը */
-      max-width: 82%;
-    }
-  }
 
   /* Կրաբի նկարը՝ վերևի ձախ անկյունում */
   .crab-img {
@@ -176,55 +168,16 @@
     margin-top: 2px;
   } 
 
-  .content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 50vh;
-    text-align: center;
-    color: #ffffff;
-    font-family: -apple-system, "Segoe UI", Arial, sans-serif;
-  }
-
-  .content h1 {
-    font-size: 28px;
-    font-weight: 500;
-    margin-bottom: 12px;
-  }
-
-  .content p {
-    font-size: 15px;
-    opacity: 0.7;
-    max-width: 460px;
-    line-height: 1.6; 
-  }
-
   /* ===================== ՄԻՋՈՑԱՌՄԱՆ ՄԱՆՐԱՄԱՍՆԵՐ ===================== */
 
   .details {
     position: relative;
     z-index: 2;
-    padding: 64px 20px 80px;
+    padding: 64px 20px 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 40px;
-  }
-
-  /* Ալիքաձև անջատիչ՝ hero-ի և մանրամասների միջև, ջրի տակից դուրս գալու տպավորություն */
-  .wave-divider {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 70px;
-    display: block;
-    margin-top: -1px;
-  }
-
-  .wave-divider path {
-    fill: rgba(6, 22, 38, 0.4);
   }
 
   .details-heading {
@@ -315,7 +268,7 @@
     line-height: 1.5;
   }
 
-  /* Քարտեզի բլոկ - բացվում է միայն «Վայր» քարտի սեղմումով */
+  /* Քարտեզ. ի սկզբանե թաքցված է, երևում է «Վայր» քարտի սեղմումով */
   .map-card {
     width: 100%;
     max-width: 900px;
@@ -398,8 +351,319 @@
     white-space: nowrap;
   }
 
+  /* ===================== DRESS CODE ===================== */
+
+  .dresscode-card {
+    width: 100%;
+    max-width: 640px;
+    background: rgba(6, 28, 46, 0.45);
+    border: 1px solid rgba(255, 224, 138, 0.35);
+    border-radius: 20px;
+    padding: 28px 24px;
+    text-align: center;
+    color: #fdfaf0;
+    font-family: 'Poppins', sans-serif;
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .dresscode-card.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .dresscode-title {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: #ffe08a;
+  }
+
+  .dresscode-desc {
+    font-size: 14px;
+    opacity: 0.8;
+    line-height: 1.6;
+    max-width: 460px;
+    margin: 0 auto 20px;
+  }
+
+  .swatches {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .swatch-color {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+  }
+
+  .swatch-label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    opacity: 0.75;
+  }
+
+  /* ===================== RSVP ===================== */
+
+  .rsvp-card {
+    width: 100%;
+    max-width: 520px;
+    background: rgba(6, 28, 46, 0.45);
+    border: 1px solid rgba(255, 224, 138, 0.35);
+    border-radius: 20px;
+    padding: 32px 28px;
+    text-align: center;
+    color: #fdfaf0;
+    font-family: 'Poppins', sans-serif;
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .rsvp-card.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .rsvp-desc {
+    font-size: 14px;
+    opacity: 0.8;
+    line-height: 1.6;
+    max-width: 420px;
+    margin: 0 auto 24px;
+  }
+
+  .rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .rsvp-field label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: #ffe08a;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .rsvp-field input[type="text"],
+  .rsvp-field input[type="number"] {
+    width: 100%;
+    background: rgba(253, 250, 240, 0.08);
+    border: 1px solid rgba(255, 224, 138, 0.35);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #fdfaf0;
+    outline: none;
+    transition: border-color 0.25s ease, background 0.25s ease;
+  }
+
+  .rsvp-field input[type="text"]::placeholder,
+  .rsvp-field input[type="number"]::placeholder {
+    color: rgba(253, 250, 240, 0.4);
+  }
+
+  .rsvp-field input[type="text"]:focus,
+  .rsvp-field input[type="number"]:focus {
+    border-color: rgba(255, 224, 138, 0.9);
+    background: rgba(253, 250, 240, 0.14);
+  }
+
+  .rsvp-toggle {
+    display: flex;
+    gap: 10px;
+  }
+
+  .rsvp-toggle input {
+    display: none;
+  }
+
+  .rsvp-toggle .rsvp-option {
+    flex: 1;
+    text-align: center;
+    padding: 12px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 224, 138, 0.35);
+    background: rgba(253, 250, 240, 0.06);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .rsvp-toggle input:checked + .rsvp-option {
+    background: linear-gradient(180deg, #fffbea 0%, #ffe08a 45%, #ffb84d 100%);
+    color: #06182e;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(255, 200, 100, 0.35);
+  }
+
+  .rsvp-guests-field {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.4s ease;
+    margin-top: -16px;
+  }
+
+  .rsvp-guests-field.show {
+    max-height: 120px;
+    opacity: 1;
+    margin-top: 0;
+  }
+
+  .rsvp-submit {
+    margin-top: 4px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #06182e;
+    background: linear-gradient(180deg, #fffbea 0%, #ffe08a 45%, #ffb84d 100%);
+    border: none;
+    border-radius: 999px;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .rsvp-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 200, 100, 0.35);
+  }
+
+  .rsvp-status {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #ffe08a;
+    display: none;
+  }
+
+  .rsvp-status.show {
+    display: block;
+  }
+
+  /* ===================== ԾՐԱԳԻՐ / ՕՐԱԿԱՐԳ ===================== */
+
+  .agenda {
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .agenda-item {
+    position: relative;
+    display: flex;
+    gap: 18px;
+    padding: 0 0 28px 0;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .agenda-item.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .agenda-item:nth-child(1) { transition-delay: 0.05s; }
+  .agenda-item:nth-child(2) { transition-delay: 0.15s; }
+  .agenda-item:nth-child(3) { transition-delay: 0.25s; }
+  .agenda-item:nth-child(4) { transition-delay: 0.35s; }
+  .agenda-item:nth-child(5) { transition-delay: 0.45s; }
+  .agenda-item:nth-child(6) { transition-delay: 0.55s; }
+
+  .agenda-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .agenda-line {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 18px;
+    flex-shrink: 0;
+  }
+
+  .agenda-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #fffbea 0%, #ffe08a 45%, #ffb84d 100%);
+    box-shadow: 0 0 10px rgba(255, 210, 120, 0.7);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .agenda-connector {
+    flex: 1;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(255,224,138,0.6), rgba(255,224,138,0.05));
+    margin-top: 4px;
+  }
+
+  .agenda-item:last-child .agenda-connector {
+    display: none;
+  }
+
+  .agenda-body {
+    background: rgba(6, 28, 46, 0.45);
+    border: 1px solid rgba(255, 224, 138, 0.35);
+    border-radius: 16px;
+    padding: 16px 20px;
+    color: #fdfaf0;
+    font-family: 'Poppins', sans-serif;
+    backdrop-filter: blur(6px);
+    flex: 1;
+  }
+
+  .agenda-time {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #ffe08a;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .agenda-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .agenda-desc {
+    font-size: 13px;
+    opacity: 0.75;
+    line-height: 1.5;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .details-heading, .detail-card, .map-card {
+    .details-heading, .detail-card, .map-card, .agenda-item {
       transition: none;
       opacity: 1;
       transform: none;
@@ -481,6 +745,76 @@
   .bubble:nth-child(28) { left: 63%; width: 15px; height: 15px; animation-duration: 12.9s; animation-delay: -6.2s; --w: 14px; --op: 0.56; }
   .bubble:nth-child(29) { left: 78%; width: 25px; height: 25px; animation-duration: 18.8s; animation-delay: -13.6s; --w: 22px; --op: 0.4; }
   .bubble:nth-child(30) { left: 91%; width: 12px; height: 12px; animation-duration: 10.6s; animation-delay: -5.2s; --w: -12px; --op: 0.6; }
+
+  /* ===================== ԲՋՋԱՅԻՆ ՀԱՄԱՐ (mobile) ===================== */
+  @media (max-width: 480px) {
+    .hero {
+      height: 55vh;
+    }
+
+    .crab-img {
+      max-height: 20%;
+      max-width: 30%;
+      top: 2%;
+    }
+
+    .fish-img {
+      max-height: 16%;
+      max-width: 15%;
+      top: 2%;
+    }
+
+    .bottom-img {
+      top: 60%;
+      bottom: auto;
+      max-height: 55%;
+      max-width: 88%;
+    }
+
+    .mermaid-img {
+      max-width: 70%;
+    }
+
+    .details {
+      padding: 48px 14px 44px;
+      gap: 32px;
+    }
+
+    .detail-cards {
+      gap: 14px;
+    }
+
+    .detail-card {
+      flex: 1 1 140px;
+      max-width: 46%;
+      padding: 18px 12px;
+    }
+
+    .detail-card .value {
+      font-size: 15px;
+    }
+
+    .map-card iframe {
+      height: 260px;
+    }
+
+    .map-card .map-footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .dresscode-card {
+      padding: 22px 16px;
+    }
+
+    .agenda-body {
+      padding: 14px 16px;
+    }
+
+    .rsvp-card {
+      padding: 24px 18px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -563,6 +897,157 @@
       </div>
     </div>
 
+    <!-- ===================== DRESS CODE ===================== -->
+    <div class="details-heading">
+      <span class="you-are-invited">DRESS CODE</span>
+      <h2>Ծովային մոտիվներ</h2>
+    </div>
+
+    <div class="dresscode-card">
+      <div class="dresscode-title">[Հագուստի ոճ]</div>
+      <div class="dresscode-desc">Խնդրում ենք հագնվել ծովային-ջրահարսային տրամադրությամբ՝ ընտրելով ստորև նշված գունապնակից։ [Այստեղ կարող ես նշել լրացուցիչ մանրամասներ՝ պաշտոնական/ոչ պաշտոնական, թեմատիկ աքսեսուարներ ևն]</div>
+      <div class="swatches">
+        <div class="swatch">
+          <span class="swatch-color" style="background:#0f5c72;"></span>
+      
+        </div>
+        <div class="swatch">
+          <span class="swatch-color" style="background:#2fb8a6;"></span>
+        
+        </div>
+        <div class="swatch">
+          <span class="swatch-color" style="background:#ffe08a;"></span>
+     
+        </div>
+        <div class="swatch">
+          <span class="swatch-color" style="background:#fdfaf0;"></span>
+      
+        </div>
+        <div class="swatch">
+          <span class="swatch-color" style="background:#ff8a65;"></span>
+       
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== ԾՐԱԳԻՐ / ՕՐԱԿԱՐԳ ===================== -->
+    <div class="details-heading">
+      <span class="you-are-invited">ՕՐԱԿԱՐԳ</span>
+      <h2>Ինչ է սպասվում</h2>
+    </div>
+
+    <div class="agenda">
+
+      <div class="agenda-item">
+        <div class="agenda-line">
+          <span class="agenda-dot"></span>
+          <span class="agenda-connector"></span>
+        </div>
+        <div class="agenda-body">
+          <div class="agenda-time">[16:00]</div>
+          <div class="agenda-title">Հյուրերի ընդունելություն</div>
+          <div class="agenda-desc">Ողջույն ծովային ոգով զարդարված մուտքի մոտ, թեթև խմիչքներ և ողջունող լուսանկարների անկյուն։</div>
+        </div>
+      </div>
+
+      <div class="agenda-item">
+        <div class="agenda-line">
+          <span class="agenda-dot"></span>
+          <span class="agenda-connector"></span>
+        </div>
+        <div class="agenda-body">
+          <div class="agenda-time">[16:30]</div>
+          <div class="agenda-title">Ջրահարսի աշխարհ. խաղեր և զվարճանք</div>
+          <div class="agenda-desc">Երեխաների համար կազմակերպված ծովային թեմայով խաղեր և մրցույթներ։</div>
+        </div>
+      </div>
+
+      <div class="agenda-item">
+        <div class="agenda-line">
+          <span class="agenda-dot"></span>
+          <span class="agenda-connector"></span>
+        </div>
+        <div class="agenda-body">
+          <div class="agenda-time">[17:15]</div>
+          <div class="agenda-title">Տոնական սեղան</div>
+          <div class="agenda-desc">Խորտիկներ, աղանդեր և բացօթյա հյուրասիրություններ բոլորի համար։</div>
+        </div>
+      </div>
+
+      <div class="agenda-item">
+        <div class="agenda-line">
+          <span class="agenda-dot"></span>
+          <span class="agenda-connector"></span>
+        </div>
+        <div class="agenda-body">
+          <div class="agenda-time">[18:00]</div>
+          <div class="agenda-title">Տորթի կտրում</div>
+          <div class="agenda-desc">«Կաց երգ» երգելը և ծննդյան մոմերի հանգցնելը միասին։</div>
+        </div>
+      </div>
+
+      <div class="agenda-item">
+        <div class="agenda-line">
+          <span class="agenda-dot"></span>
+          <span class="agenda-connector"></span>
+        </div>
+        <div class="agenda-body">
+          <div class="agenda-time">[18:30]</div>
+          <div class="agenda-title">Պարեր և երաժշտություն</div>
+          <div class="agenda-desc">Ազատ պար և զվարճալի երաժշտական ​​ծրագիր բոլոր հյուրերի համար։</div>
+        </div>
+      </div>
+
+      <div class="agenda-item">
+        <div class="agenda-line">
+          <span class="agenda-dot"></span>
+          <span class="agenda-connector"></span>
+        </div>
+        <div class="agenda-body">
+          <div class="agenda-time">[19:30]</div>
+          <div class="agenda-title">Նվերների բացում և հրաժեշտ</div>
+          <div class="agenda-desc">Ավարտական խոսքեր, նվերների նվիրում և հուշանվերներ հյուրերի համար։</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===================== RSVP ===================== -->
+    <div class="details-heading">
+      <span class="you-are-invited">RSVP</span>
+      <h2>Կգա՞ք մեզ մոտ</h2>
+    </div>
+
+    <div class="rsvp-card" id="rsvpCard">
+      <div class="rsvp-desc">Խնդրում ենք հաստատել ձեր մասնակցությունը, որպեսզի կարողանանք ամեն ինչ ճիշտ պատրաստել։</div>
+
+      <form class="rsvp-form" id="rsvpForm">
+        <div class="rsvp-field">
+          <label for="rsvpName">ԱՆՈՒՆ ԱԶԳԱՆՈՒՆ</label>
+          <input type="text" id="rsvpName" name="rsvpName" placeholder="Ձեր անունը" required>
+        </div>
+
+        <div class="rsvp-field">
+          <label>ՄԱՍՆԱԿՑՈՒԹՅՈՒՆ</label>
+          <div class="rsvp-toggle">
+            <input type="radio" id="rsvpYes" name="rsvpAnswer" value="Այո, կգամ" checked>
+            <label class="rsvp-option" for="rsvpYes"> Այո, կգամ</label>
+
+            <input type="radio" id="rsvpNo" name="rsvpAnswer" value="Ոչ, չեմ կարող">
+            <label class="rsvp-option" for="rsvpNo"> Ոչ, չեմ կարող</label>
+          </div>
+        </div>
+
+        <div class="rsvp-field rsvp-guests-field show" id="rsvpGuestsField">
+          <label for="rsvpGuests">ՀՅՈՒՐԵՐԻ ՔԱՆԱԿ (ներառյալ ինքդ)</label>
+          <input type="number" id="rsvpGuests" name="rsvpGuests" min="1" value="1">
+        </div>
+
+        <button type="submit" class="rsvp-submit">ՀԱՍՏԱՏԵԼ</button>
+        <div class="rsvp-status" id="rsvpStatus"></div>
+      </form>
+    </div>
+
   </section>
 
   <div class="overlay"></div>
@@ -580,13 +1065,9 @@
     <span class="bubble"></span><span class="bubble"></span><span class="bubble"></span>
   </div>
 
-  <div class="content">
-
-  </div>
-
   <script>
     // Անիմացիա՝ մանրամասների բլոկների համար, երբ դրանք հայտնվում են էկրանին
-    const animatedEls = document.querySelectorAll('.details-heading, .detail-card');
+    const animatedEls = document.querySelectorAll('.details-heading, .detail-card, .agenda-item, .dresscode-card, .rsvp-card');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -612,6 +1093,50 @@
         e.preventDefault();
         locationCard.click();
       }
+    });
+
+    // ===================== RSVP =====================
+    // Փոխարինիր այս համարը միջոցառման կազմակերպչի WhatsApp համարով
+    // Ֆորմատը՝ երկրի կոդ + համար, առանց "+" կամ բացատների (օր.՝ 37499123456)
+    const RSVP_WHATSAPP_NUMBER = "37400000000";
+
+    const rsvpForm = document.getElementById('rsvpForm');
+    const rsvpGuestsField = document.getElementById('rsvpGuestsField');
+    const rsvpStatus = document.getElementById('rsvpStatus');
+    const rsvpRadios = rsvpForm.querySelectorAll('input[name="rsvpAnswer"]');
+
+    rsvpRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.value.startsWith('Այո') && radio.checked) {
+          rsvpGuestsField.classList.add('show');
+        } else if (radio.checked) {
+          rsvpGuestsField.classList.remove('show');
+        }
+      });
+    });
+
+    rsvpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('rsvpName').value.trim();
+      const answer = rsvpForm.querySelector('input[name="rsvpAnswer"]:checked').value;
+      const isComing = answer.startsWith('Այո');
+      const guests = isComing ? document.getElementById('rsvpGuests').value : null;
+
+      let message = `Ողջույն! Ես՝ ${name}, ${answer.toLowerCase()} ծննդյան երեկույթին։`;
+      if (isComing && guests) {
+        message += ` Հյուրերի քանակը (ինձ ներառյալ)՝ ${guests}։`;
+      }
+
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/${RSVP_WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+      window.open(whatsappUrl, '_blank');
+
+      rsvpStatus.textContent = 'Շնորհակալություն՝ WhatsApp-ը կբացվի հաստատված պատասխանով, պարզապես ուղարկիր հաղորդագրությունը 🙂';
+      rsvpStatus.classList.add('show');
+      rsvpForm.reset();
+      rsvpGuestsField.classList.add('show');
     });
   </script>
 
