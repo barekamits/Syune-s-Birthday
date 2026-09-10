@@ -42,8 +42,142 @@
     z-index: 0;
   }
 
+  /* ===================== ԱՌԱՋԻՆ ՇԵՐՏ / COVER ԷԿՐԱՆ ===================== */
+  html.no-scroll, body.no-scroll {
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .cover-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+    height: 100vh;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    overflow: hidden;
+    background-color: #06182e;
+    background-image: url("https://uploads.onecompiler.io/43gpeysj6/1788476539124/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.9s ease, transform 0.9s ease, visibility 0s linear 0s;
+  }
+
+  .cover-screen::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+  }
+
+  .cover-screen.opened {
+    opacity: 0;
+    transform: translateY(-30px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.9s ease, transform 0.9s ease, visibility 0s linear 0.9s;
+  }
+
+  .cover-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cover-content .pre-title {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 4px;
+    font-size: clamp(12px, 2.2vw, 18px);
+    color: #ffe08a;
+    -webkit-text-stroke: 0.5px rgba(90, 30, 90, 0.35);
+    text-shadow:
+      0 0 12px rgba(255, 225, 150, 0.95),
+      0 2px 8px rgba(40, 0, 40, 0.75),
+      0 0 22px rgba(80, 0, 80, 0.5);
+    margin-bottom: 12px;
+  }
+
+  .cover-content .cover-name {
+    display: block;
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(46px, 11vw, 100px);
+    line-height: 1.1;
+    background: linear-gradient(180deg, #fffbea 0%, #ffe08a 40%, #ffb84d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter:
+      drop-shadow(0 2px 3px rgba(40,0,40,0.6))
+      drop-shadow(0 0 10px rgba(40,0,40,0.55))
+      drop-shadow(0 0 20px rgba(255,210,120,0.6));
+  }
+
+  .cover-content .cover-sub {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 3px;
+    font-size: clamp(14px, 3.2vw, 26px);
+    color: #fdfaf0;
+    -webkit-text-stroke: 0.5px rgba(90, 30, 90, 0.35);
+    text-shadow:
+      0 0 12px rgba(255, 225, 150, 0.9),
+      0 2px 8px rgba(40, 0, 40, 0.75),
+      0 0 22px rgba(80, 0, 80, 0.5);
+    margin-top: 16px;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 2;
+    animation: bob 2.2s ease-in-out infinite;
+  }
+
+  .scroll-hint span {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #ffe08a;
+    text-shadow: 0 0 10px rgba(255, 225, 150, 0.8);
+  }
+
+  .scroll-hint svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
   /* Ցուցադրական բովանդակություն, ցույց տալու համար ինչպես է երևում */
-  /* Վերևի հատված - նկարը էկրանի կիսով չափ */
+  /* Երկրորդ հիմնական բլոկ (նախկին վերևի հատված) - նկարը էկրանի կիսով չափ */
   .hero {
     width: 100%;
     height: 50vh;
@@ -69,11 +203,13 @@
     position: absolute;
     top: 33%;
     left: 50%;
-    transform: translate(-50%, -50%);
     max-height: 70%;
     max-width: 60%;
     object-fit: contain;
     z-index: 2;
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 50px)) scale(0.92);
+    transition: opacity 1s ease 0.15s, transform 1s ease 0.15s;
   }
 
   /* Ներքևի նկարը՝ ջրահարսից ներքև, ավարտվում է հենց hero-ի (երկրորդ շերտի) ստորին եզրագծի հետ */
@@ -82,11 +218,13 @@
     bottom: 0;
     left: 50%;
     top:60%;
-    transform: translateX(-50%);
     max-height: 85%;
     max-width: 80%;
     object-fit: contain;
     z-index: 2;
+    opacity: 0;
+    transform: translate(-50%, 60px);
+    transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
   }
 
   /* Կրաբի նկարը՝ վերևի ձախ անկյունում */
@@ -98,6 +236,9 @@
     max-width: 38%;
     object-fit: contain;
     z-index: 3;
+    opacity: 0;
+    transform: translate(-50px, -30px) rotate(-8deg);
+    transition: opacity 0.9s ease 0.45s, transform 0.9s ease 0.45s;
   }
 
   /* Ձկնիկի նկարը՝ վերևի աջ անկյունում */
@@ -109,6 +250,9 @@
     max-width: 18%;
     object-fit: contain;
     z-index: 3;
+    opacity: 0;
+    transform: translate(50px, -30px) rotate(8deg);
+    transition: opacity 0.9s ease 0.55s, transform 0.9s ease 0.55s;
   }
 
   /* Ծննդյան պարտիի վերնագիրը՝ kamar նկարի վրա */
@@ -116,11 +260,46 @@
     position: absolute;
     top: 72%;
     left: 50%;
-    transform: translate(-50%, -50%);
     z-index: 4;
     width: 90%;
     text-align: center;
     pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 30px));
+    transition: opacity 1s ease 0.7s, transform 1s ease 0.7s;
+  }
+
+  .hero.reveal .mermaid-img {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .hero.reveal .bottom-img {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  .hero.reveal .crab-img {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  .hero.reveal .fish-img {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  .hero.reveal .party-title {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mermaid-img, .bottom-img, .crab-img, .fish-img, .party-title {
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 
   .party-title .welcome {
@@ -668,6 +847,9 @@
       opacity: 1;
       transform: none;
     }
+    .scroll-hint {
+      animation: none;
+    }
   }
 
   /* --- Օվկիանոսի պղպջակներ --- */
@@ -678,7 +860,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    z-index: 3;
+    z-index: 11;
     pointer-events: none;
   }
 
@@ -748,6 +930,10 @@
 
   /* ===================== ԲՋՋԱՅԻՆ ՀԱՄԱՐ (mobile) ===================== */
   @media (max-width: 480px) {
+    .cover-content .cover-name {
+      font-size: clamp(40px, 15vw, 66px);
+    }
+
     .hero {
       height: 55vh;
     }
@@ -822,7 +1008,23 @@
 </head>
 <body>
 
-  <div class="hero">
+  <!-- ===================== ԱՌԱՋԻՆ ՇԵՐՏ / COVER ԷԿՐԱՆ ===================== -->
+  <div class="cover-screen" id="coverScreen">
+    <div class="cover-content">
+      <span class="pre-title">ԴՈՒՔ ՀՐԱՎԻՐՎԱԾ ԵՔ</span>
+      <span class="cover-name">Syune</span>
+      <span class="cover-sub">ԾՆՆԴՅԱՆ ՕՐ</span>
+    </div>
+    <div class="scroll-hint" id="scrollHint" role="button" tabindex="0" aria-label="Սեղմեք՝ հրավերը բացելու համար">
+      <span>ՍԵՂՄԵՔ՝ ԲԱՑԵԼՈՒ ՀԱՄԱՐ</span>
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 4V20M12 20L6 14M12 20L18 14" stroke="#ffe08a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ===================== ԵՐԿՐՈՐԴ ՀԻՄՆԱԿԱՆ ԲՈՎԱՆԴԱԿՈՒԹՅՈՒՆ ===================== -->
+  <div class="hero" id="heroSection">
     <div class="hero-overlay"></div>
     <img src="https://uploads.onecompiler.io/43gpeysj6/1788473794061/syune.png" alt="Ջրահարս" class="mermaid-img">
     <img src="kamar1.png" alt="Ներքևի նկար" class="bottom-img">
@@ -1058,6 +1260,29 @@
   </div>
 
   <script>
+    // Cover էկրանը թաքցնում է հիմնական բովանդակությունը, մինչև այն չբացվի
+    const coverScreen = document.getElementById('coverScreen');
+    const scrollHint = document.getElementById('scrollHint');
+
+    document.documentElement.classList.add('no-scroll');
+    document.body.classList.add('no-scroll');
+
+    function openInvitation() {
+      if (coverScreen.classList.contains('opened')) return;
+      coverScreen.classList.add('opened');
+      document.getElementById('heroSection').classList.add('reveal');
+      document.documentElement.classList.remove('no-scroll');
+      document.body.classList.remove('no-scroll');
+    }
+
+    scrollHint.addEventListener('click', openInvitation);
+    scrollHint.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openInvitation();
+      }
+    });
+
     // Անիմացիա՝ մանրամասների բլոկների համար, երբ դրանք հայտնվում են էկրանին
     const animatedEls = document.querySelectorAll('.details-heading, .detail-card, .agenda-item, .dresscode-card, .rsvp-card');
     const observer = new IntersectionObserver((entries) => {
