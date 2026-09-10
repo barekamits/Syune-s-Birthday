@@ -20,6 +20,7 @@
   }
  
   body {
+    /* Հիմնական ֆոնը - ամբողջ կայքի համար */
     background-image: url("https://uploads.onecompiler.io/43gpeysj6/1788476539124/bg.jpg");
     background-size: cover;
     background-position: center;
@@ -30,6 +31,7 @@
     overflow-x: hidden;
   }
 
+  /* Նուրբ մուգ շերտ նկարի վրա, որպեսզի տեքստը ընթեռնելի լինի */
   .overlay {
     position: fixed;
     top: 0;
@@ -62,28 +64,17 @@
     padding: 20px;
     overflow: hidden;
     background-color: #06182e;
+    background-image: url("https://uploads.onecompiler.io/43gpeysj6/1788476539124/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
     transition: opacity 0.9s ease, transform 0.9s ease, visibility 0s linear 0s;
   }
 
-  /* ===== ՏԵՍԱՆՅՈՒԹԸ ՈՐՊԵՍ ՖՈՆ ===== */
-  .cover-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  /* Մուգ շերտ տեսանյութի վրա՝ տեքստը ընթեռնելի դարձնելու համար */
   .cover-screen::before {
     content: "";
     position: absolute;
@@ -92,8 +83,7 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-    pointer-events: none;
+    z-index: 0;
   }
 
   .cover-screen.opened {
@@ -154,10 +144,9 @@
     margin-top: 16px;
   }
 
-  /* ===== «ՍԵՂՄԵՔ՝ ԲԱՑԵԼՈՒ ՀԱՄԱՐ» ԿՈՃԱԿԸ ===== */
   .scroll-hint {
     position: absolute;
-    bottom: 15%;        /* ← այստեղ կարգավորիր բարձրությունը */
+    bottom: 36px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -165,7 +154,7 @@
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    z-index: 3;
+    z-index: 2;
     animation: bob 2.2s ease-in-out infinite;
   }
 
@@ -187,7 +176,8 @@
     50% { transform: translateX(-50%) translateY(8px); }
   }
 
-  /* ===================== ԵՐԿՐՈՐԴ ՀԻՄՆԱԿԱՆ ԲՈՎԱՆԴԱԿՈՒԹՅՈՒՆ ===================== */
+  /* Ցուցադրական բովանդակություն, ցույց տալու համար ինչպես է երևում */
+  /* Երկրորդ հիմնական բլոկ (նախկին վերևի հատված) - նկարը էկրանի կիսով չափ */
   .hero {
     width: 100%;
     height: 50vh;
@@ -208,6 +198,7 @@
     background: rgba(0, 0, 0, 0.25);
   }
 
+  /* Ջրահարսի նկարը՝ ուղիղ hero բաժնի կենտրոնում */
   .mermaid-img {
     position: absolute;
     top: 33%;
@@ -221,6 +212,7 @@
     transition: opacity 1s ease 0.15s, transform 1s ease 0.15s;
   }
 
+  /* Ներքևի նկարը՝ ջրահարսից ներքև, ավարտվում է հենց hero-ի (երկրորդ շերտի) ստորին եզրագծի հետ */
   .bottom-img {
     position: absolute;
     bottom: 0;
@@ -235,6 +227,7 @@
     transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
   }
 
+  /* Կրաբի նկարը՝ վերևի ձախ անկյունում */
   .crab-img {
     position: absolute;
     top: 4%;
@@ -248,6 +241,7 @@
     transition: opacity 0.9s ease 0.45s, transform 0.9s ease 0.45s;
   }
 
+  /* Ձկնիկի նկարը՝ վերևի աջ անկյունում */
   .fish-img {
     position: absolute;
     top: 4%;
@@ -261,6 +255,7 @@
     transition: opacity 0.9s ease 0.55s, transform 0.9s ease 0.55s;
   }
 
+  /* Ծննդյան պարտիի վերնագիրը՝ kamar նկարի վրա */
   .party-title {
     position: absolute;
     top: 72%;
@@ -452,6 +447,7 @@
     line-height: 1.5;
   }
 
+  /* Քարտեզ. ի սկզբանե թաքցված է, երևում է «Վայր» քարտի սեղմումով */
   .map-card {
     width: 100%;
     max-width: 900px;
@@ -938,10 +934,6 @@
       font-size: clamp(40px, 15vw, 66px);
     }
 
-    .scroll-hint {
-      bottom: 12%;
-    }
-
     .hero {
       height: 55vh;
     }
@@ -968,7 +960,7 @@
     .mermaid-img {
       max-width: 70%;
     }
-    .party-title {
+ .party-title {
       top: 64%;
     }
 
@@ -1018,14 +1010,6 @@
 
   <!-- ===================== ԱՌԱՋԻՆ ՇԵՐՏ / COVER ԷԿՐԱՆ ===================== -->
   <div class="cover-screen" id="coverScreen">
-
-    <!-- ՏԵՍԱՆՅՈՒԹԸ ՈՐՊԵՍ ՖՈՆ -->
-    <video class="cover-video" autoplay muted playsinline preload="auto">
-      <source src="Syunvide.mp4" type="video/mp4">
-      <!-- Ցանկության դեպքում ավելացրու նաև .webm տարբերակ -->
-      <!-- <source src="ՔՈ_ՏԵՍԱՆՅՈՒԹԸ.webm" type="video/webm"> -->
-    </video>
-
     <div class="cover-content">
       <span class="pre-title">ԴՈՒՔ ՀՐԱՎԻՐՎԱԾ ԵՔ</span>
       <span class="cover-name">Syune</span>
@@ -1045,13 +1029,17 @@
     <img src="https://uploads.onecompiler.io/43gpeysj6/1788473794061/syune.png" alt="Ջրահարս" class="mermaid-img">
     <img src="kamar1.png" alt="Ներքևի նկար" class="bottom-img">
 
+    <!-- Ծննդյան պարտիի վերնագիր՝ kamar նկարի վրա -->
     <div class="party-title">
       <span class="welcome">W E L C O M E&nbsp; T O</span>
       <span class="main-line">Syune's</span>
       <span class="sub-line">BIRTHDAY PARTY</span>
     </div>
 
+    <!-- Կրաբի նկարը (վերևի ձախ) - փոխարինիր src-ը քո նկարով -->
     <img src="https://uploads.onecompiler.io/43gpeysj6/1788474969239/crab.png" alt="Կրաբ" class="crab-img">
+
+    <!-- Ձկնիկի նկարը (վերևի աջ) - փոխարինիր src-ը քո նկարով -->
     <img src="https://uploads.onecompiler.io/43gpeysj6/1788474972339/dzukik.png" alt="Ձկնիկ" class="fish-img">
   </div>
 
@@ -1061,6 +1049,7 @@
 
     <div class="details-heading">
       <span class="you-are-invited">YOU'RE INVITED</span>  
+
     </div> 
  
     <div class="detail-cards">
@@ -1097,6 +1086,8 @@
 
     </div>
 
+    <!-- Քարտեզ. ի սկզբանե թաքցված է, երևում է «Վայր» քարտի սեղմումով -->
+    <!-- iframe-ի src-ում "Yerevan, Armenia" հատվածը փոխարինիր փաստացի հասցեով -->
     <div class="map-card" id="mapCard">
       <div class="map-card-inner">
         <iframe
@@ -1123,18 +1114,23 @@
       <div class="swatches">
         <div class="swatch">
           <span class="swatch-color" style="background:#0f5c72;"></span>
+      
         </div>
         <div class="swatch">
           <span class="swatch-color" style="background:#2fb8a6;"></span>
+        
         </div>
         <div class="swatch">
           <span class="swatch-color" style="background:#ffe08a;"></span>
+     
         </div>
         <div class="swatch">
           <span class="swatch-color" style="background:#fdfaf0;"></span>
+      
         </div>
         <div class="swatch">
           <span class="swatch-color" style="background:#ff8a65;"></span>
+       
         </div>
       </div>
     </div>
@@ -1155,6 +1151,7 @@
         <div class="agenda-body">
           <div class="agenda-time">[16:00]</div>
           <div class="agenda-title">Հյուրերի ընդունելություն</div>
+ 
         </div>
       </div>
 
@@ -1202,6 +1199,9 @@
           <div class="agenda-time">[18:30]</div>
           <div class="agenda-title">Պարեր և երաժշտություն</div>
         </div>
+      </div>
+
+    
       </div>
 
     </div>
@@ -1260,9 +1260,9 @@
   </div>
 
   <script>
+    // Cover էկրանը թաքցնում է հիմնական բովանդակությունը, մինչև այն չբացվի
     const coverScreen = document.getElementById('coverScreen');
     const scrollHint = document.getElementById('scrollHint');
-    const coverVideo = document.querySelector('.cover-video');
 
     document.documentElement.classList.add('no-scroll');
     document.body.classList.add('no-scroll');
@@ -1273,11 +1273,6 @@
       document.getElementById('heroSection').classList.add('reveal');
       document.documentElement.classList.remove('no-scroll');
       document.body.classList.remove('no-scroll');
-
-      // Կանգնեցնում ենք տեսանյութը, որ ռեսուրս չծախսի
-      if (coverVideo) {
-        coverVideo.pause();
-      }
     }
 
     scrollHint.addEventListener('click', openInvitation);
@@ -1288,7 +1283,7 @@
       }
     });
 
-    // Անիմացիա՝ մանրամասների բլոկների համար
+    // Անիմացիա՝ մանրամասների բլոկների համար, երբ դրանք հայտնվում են էկրանին
     const animatedEls = document.querySelectorAll('.details-heading, .detail-card, .agenda-item, .dresscode-card, .rsvp-card');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1300,7 +1295,7 @@
     }, { threshold: 0.2 });
     animatedEls.forEach(el => observer.observe(el));
 
-    // Քարտեզ
+    // Քարտեզը բացվում/փակվում է «Վայր» քարտի սեղմումով
     const locationCard = document.getElementById('locationCard');
     const mapCard = document.getElementById('mapCard');
     locationCard.addEventListener('click', () => {
@@ -1318,6 +1313,8 @@
     });
 
     // ===================== RSVP =====================
+    // Փոխարինիր այս համարը միջոցառման կազմակերպչի WhatsApp համարով
+    // Ֆորմատը՝ երկրի կոդ + համար, առանց "+" կամ բացատների (օր.՝ 37499123456)
     const RSVP_WHATSAPP_NUMBER = "37400000000";
 
     const rsvpForm = document.getElementById('rsvpForm');
