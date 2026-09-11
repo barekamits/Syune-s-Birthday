@@ -18,7 +18,7 @@
     height: 100%;
     width: 100%;
   }
- 
+
   body {
     background-image: url("https://uploads.onecompiler.io/43gpeysj6/1788476539124/bg.jpg");
     background-size: cover;
@@ -26,8 +26,19 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
+    min-height: 100dvh;
     position: relative;
     overflow-x: hidden;
+  }
+
+  /* background-attachment:fixed is unreliable on iOS/Android browsers —
+     it can make the image jump, disappear, or repaint on every scroll frame,
+     which is the single biggest cause of a page looking "broken" on mobile.
+     Switch to normal scrolling on touch-sized viewports. */
+  @media (max-width: 768px) {
+    body {
+      background-attachment: scroll;
+    }
   }
 
   .overlay {
@@ -38,6 +49,7 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.35);
     z-index: 0;
+    pointer-events: none;
   }
 
   /* ===================== ԱՌԱՋԻՆ ՇԵՐՏ / COVER ԷԿՐԱՆ ===================== */
@@ -51,8 +63,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100dvh;
     height: 100vh;
+    height: 100dvh;
     z-index: 10;
     display: flex;
     flex-direction: column;
@@ -69,17 +81,17 @@
   }
 
   /* ===== ՏԵՍԱՆՅՈՒԹԸ ՈՐՊԵՍ ՖՈՆ ===== */
-.cover-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  transform: translate(-50%, -50%);
-  object-fit: contain;
-  z-index: 0;
-  pointer-events: none;
-}
+  .cover-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+  }
+
   /* Մուգ շերտ տեսանյութի վրա՝ տեքստը ընթեռնելի դարձնելու համար */
   .cover-screen::before {
     content: "";
@@ -104,6 +116,8 @@
   .cover-content {
     position: relative;
     z-index: 2;
+    width: 100%;
+    max-width: 92vw;
   }
 
   .cover-content .pre-title {
@@ -124,7 +138,7 @@
   .cover-content .cover-name {
     display: block;
     font-family: 'Great Vibes', cursive;
-    font-size: clamp(46px, 11vw, 100px);
+    font-size: clamp(46px, 15vw, 100px);
     line-height: 1.1;
     background: linear-gradient(180deg, #fffbea 0%, #ffe08a 40%, #ffb84d 100%);
     -webkit-background-clip: text;
@@ -154,7 +168,7 @@
   /* ===== «ՍԵՂՄԵՔ՝ ԲԱՑԵԼՈՒ ՀԱՄԱՐ» ԿՈՃԱԿԸ ===== */
   .scroll-hint {
     position: absolute;
-    bottom: 15%;        /* ← այստեղ կարգավորիր բարձրությունը */
+    bottom: 12%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -172,6 +186,7 @@
     letter-spacing: 2px;
     color: #ffe08a;
     text-shadow: 0 0 10px rgba(255, 225, 150, 0.8);
+    white-space: nowrap;
   }
 
   .scroll-hint svg {
@@ -194,6 +209,7 @@
     background-repeat: no-repeat;
     position: relative;
     z-index: 1;
+    overflow: hidden;
   }
 
   .hero-overlay {
@@ -220,15 +236,14 @@
 
   .bottom-img {
     position: absolute;
-    bottom: 0;
+    top: 60%;
     left: 50%;
-    top:60%;
-    max-height: 85%;
-    max-width: 80%;
+    max-height: 55%;
+    max-width: 60%;
     object-fit: contain;
     z-index: 2;
     opacity: 0;
-    transform: translate(-50%, 60px);
+    transform: translate(-50%, calc(-50% + 60px));
     transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
   }
 
@@ -278,7 +293,7 @@
 
   .hero.reveal .bottom-img {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, -50%);
   }
 
   .hero.reveal .crab-img {
@@ -322,7 +337,7 @@
   .party-title .main-line {
     display: block;
     font-family: 'Great Vibes', cursive;
-    font-size: clamp(34px, 7vw, 64px);
+    font-size: clamp(34px, 10vw, 64px);
     line-height: 1.15;
     background: linear-gradient(180deg, #fffbea 0%, #ffe08a 40%, #ffb84d 100%);
     -webkit-background-clip: text;
@@ -347,7 +362,7 @@
       0 2px 8px rgba(40, 0, 40, 0.75),
       0 0 22px rgba(80, 0, 80, 0.5);
     margin-top: 2px;
-  } 
+  }
 
   /* ===================== ՄԻՋՈՑԱՌՄԱՆ ՄԱՆՐԱՄԱՍՆԵՐ ===================== */
 
@@ -385,7 +400,7 @@
 
   .details-heading h2 {
     font-family: 'Great Vibes', cursive;
-    font-size: clamp(32px, 6vw, 52px);
+    font-size: clamp(32px, 8vw, 52px);
     font-weight: 400;
     background: linear-gradient(180deg, #fffbea 0%, #ffe08a 45%, #ffb84d 100%);
     -webkit-background-clip: text;
@@ -417,6 +432,7 @@
     opacity: 0;
     transform: translateY(30px) scale(0.96);
     transition: opacity 0.8s ease, transform 0.8s ease;
+    overflow-wrap: break-word;
   }
 
   .detail-card.in-view {
@@ -653,7 +669,7 @@
     border-radius: 10px;
     padding: 12px 14px;
     font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+    font-size: 16px; /* >=16px prevents iOS Safari from auto-zooming into the field */
     color: #fdfaf0;
     outline: none;
     transition: border-color 0.25s ease, background 0.25s ease;
@@ -672,6 +688,7 @@
 
   .rsvp-toggle {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
   }
 
@@ -680,7 +697,7 @@
   }
 
   .rsvp-toggle .rsvp-option {
-    flex: 1;
+    flex: 1 1 120px;
     text-align: center;
     padding: 12px 10px;
     border-radius: 10px;
@@ -727,6 +744,7 @@
     padding: 14px 18px;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .rsvp-submit:hover {
@@ -820,6 +838,7 @@
     font-family: 'Poppins', sans-serif;
     backdrop-filter: blur(6px);
     flex: 1;
+    min-width: 0;
   }
 
   .agenda-time {
@@ -886,6 +905,7 @@
     animation-name: riseWobble;
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
+    will-change: transform, opacity;
   }
 
   @keyframes riseWobble {
@@ -929,14 +949,22 @@
   .bubble:nth-child(29) { left: 78%; width: 25px; height: 25px; animation-duration: 18.8s; animation-delay: -13.6s; --w: 22px; --op: 0.4; }
   .bubble:nth-child(30) { left: 91%; width: 12px; height: 12px; animation-duration: 10.6s; animation-delay: -5.2s; --w: -12px; --op: 0.6; }
 
+  /* Fewer bubbles on phones: lighten the animation/paint load so the
+     page doesn't stutter or feel "broken" on lower-powered devices. */
+  @media (max-width: 480px) {
+    .bubble:nth-child(3n) {
+      display: none;
+    }
+  }
+
   /* ===================== ԲՋՋԱՅԻՆ ՀԱՄԱՐ (mobile) ===================== */
   @media (max-width: 480px) {
     .cover-content .cover-name {
-      font-size: clamp(40px, 15vw, 66px);
+      font-size: clamp(40px, 16vw, 66px);
     }
 
     .scroll-hint {
-      bottom: 12%;
+      bottom: 10%;
     }
 
     .hero {
@@ -956,17 +984,18 @@
     }
 
     .bottom-img {
-      top: 60%;
-      bottom: auto;
-      max-height: 55%;
-      max-width: 88%;
+      top: 62%;
+      max-height: 42%;
+      max-width: 78%;
     }
 
     .mermaid-img {
+      top: 30%;
       max-width: 70%;
     }
+
     .party-title {
-      top: 64%;
+      top: 66%;
     }
 
     .details {
@@ -1017,11 +1046,14 @@
   <div class="cover-screen" id="coverScreen">
 
     <!-- ՏԵՍԱՆՅՈՒԹԸ ՈՐՊԵՍ ՖՈՆ -->
+    <!-- NOTE: this points at a local file ("Jrahars_20260911213813.mp4") that
+         isn't hosted anywhere. On a real device that request 404s and the
+         cover screen falls back to the plain #06182e background, no video.
+         Upload the clip somewhere public (your own hosting, or the same
+         uploads.onecompiler.io bucket the other images use) and put that
+         full https:// URL here. -->
     <video class="cover-video" autoplay muted playsinline preload="auto">
-      <source src="Jrahars_20260911213813.mp4
-" type="video/mp4">
-      <!-- Ցանկության դեպքում ավելացրու նաև .webm տարբերակ -->
-      <!-- <source src="ՔՈ_ՏԵՍԱՆՅՈՒԹԸ.webm" type="video/webm"> -->
+      <source src="Jrahars_20260911213813.mp4" type="video/mp4">
     </video>
 
     <div class="cover-content">
@@ -1041,6 +1073,9 @@
   <div class="hero" id="heroSection">
     <div class="hero-overlay"></div>
     <img src="https://uploads.onecompiler.io/43gpeysj6/1788473794061/syune.png" alt="Ջրահարս" class="mermaid-img">
+    <!-- NOTE: same issue as the video — "kamar1.png" is a local filename,
+         not a real URL, so this image won't load on a phone (or anywhere
+         outside your editor). Replace with a hosted https:// link. -->
     <img src="kamar1.png" alt="Ներքևի նկար" class="bottom-img">
 
     <div class="party-title">
@@ -1058,9 +1093,9 @@
   <section class="details">
 
     <div class="details-heading">
-      <span class="you-are-invited">YOU'RE INVITED</span>  
-    </div> 
- 
+      <span class="you-are-invited">YOU'RE INVITED</span>
+    </div>
+
     <div class="detail-cards">
 
       <div class="detail-card">
@@ -1175,7 +1210,7 @@
         <div class="agenda-body">
           <div class="agenda-time">[17:15]</div>
           <div class="agenda-title">Լողավազան </div>
-          <div class="agenda-desc">Սիրելի ծնողներ, լողավազանի համար խնդրում ենք բալիկների հետ ունենալ համապատասխան հագուստ։ 
+          <div class="agenda-desc">Սիրելի ծնողներ, լողավազանի համար խնդրում ենք բալիկների հետ ունենալ համապատասխան հագուստ։
 </div>
         </div>
       </div>
@@ -1285,6 +1320,13 @@
         openInvitation();
       }
     });
+
+    // Also let a tap/scroll anywhere on the cover open it — on phones people
+    // often tap the screen itself rather than the small hint button, and
+    // without this the page can feel "stuck" and broken on the first screen.
+    coverScreen.addEventListener('click', openInvitation);
+    window.addEventListener('wheel', openInvitation, { passive: true, once: true });
+    window.addEventListener('touchmove', openInvitation, { passive: true, once: true });
 
     // Անիմացիա՝ մանրամասների բլոկների համար
     const animatedEls = document.querySelectorAll('.details-heading, .detail-card, .agenda-item, .dresscode-card, .rsvp-card');
