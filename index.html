@@ -20,7 +20,7 @@
   }
 
   body {
-    background-color: #06182e; /* fallback գույն */
+    background-color: #06182e;
     min-height: 100vh;
     min-height: 100dvh;
     position: relative;
@@ -42,7 +42,6 @@
     pointer-events: none;
   }
 
-  /* Մուգ շերտ՝ բովանդակության ընթեռնելիության համար */
   .bg-fixed::after {
     content: "";
     position: absolute;
@@ -78,7 +77,6 @@
     transition: opacity 0.9s ease, transform 0.9s ease, visibility 0s linear 0s;
   }
 
-  /* ===== ՏԵՍԱՆՅՈՒԹԸ ՈՐՊԵՍ ՖՈՆ ===== */
   .cover-video {
     position: absolute;
     top: 0;
@@ -159,7 +157,6 @@
     margin-top: 16px;
   }
 
-  /* ===== «ՍԵՂՄԵՔ՝ ԲԱՑԵԼՈՒ ՀԱՄԱՐ» ԿՈՃԱԿԸ ===== */
   .scroll-hint {
     position: absolute;
     bottom: 12%;
@@ -225,11 +222,12 @@
     transition: opacity 1s ease 0.15s, transform 1s ease 0.15s;
   }
 
+  /* ===== ՓՈՓՈԽՎԱԾ՝ bottom-img-ը ավելի վերև, որ ներքևում տարածություն չմնա ===== */
   .bottom-img {
     position: absolute;
-    top: 80%;
+    top: 70%;              /* 80% → 70% */
     left: 50%;
-    max-height: 65%;
+    max-height: 55%;       /* 65% → 55% */
     max-width: 60%;
     object-fit: contain;
     z-index: 2;
@@ -240,10 +238,10 @@
 
   .crab-img {
     position: absolute;
-    top: 90%;
+    top: 82%;              /* 90% → 82%՝ ավելի վերև */
     left: 15%;
-    max-height: 28%;
-    max-width: 38%;
+    max-height: 24%;
+    max-width: 34%;
     object-fit: contain;
     z-index: 3;
     opacity: 0;
@@ -266,7 +264,7 @@
 
   .party-title {
     position: absolute;
-    top: 68%;
+    top: 60%;              /* 68% → 60%՝ վերնագրին մոտեցնելով ներքևի նկարին */
     left: 50%;
     z-index: 4;
     width: 90%;
@@ -360,12 +358,12 @@
   .details {
     position: relative;
     z-index: 2;
-    padding: 64px 20px 60px;
+    padding: 28px 20px 60px;   /* 64px → 28px՝ hero-ից հետո տարածությունը կրճատված */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
-    background: rgba(6, 24, 46, 0.55); /* կիսաթափանցիկ մուգ ֆոն՝ ամբողջ էկրանով */
+    gap: 24px;                 /* 40px → 24px՝ ընդհանուր տարածությունները կրճատված */
+    background: rgba(6, 24, 46, 0.55);
     backdrop-filter: blur(2px);
     min-height: 100vh;
   }
@@ -380,6 +378,11 @@
   .details-heading.in-view {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* YOU'RE INVITED-ից հետո տարածությունը կրճատված է */
+  .details > .details-heading:first-child {
+    margin-bottom: -6px;
   }
 
   .details-heading .you-are-invited {
@@ -965,22 +968,23 @@
     }
 
     .crab-img {
-      max-height: 16%;
-      max-width: 20%;
-      top: 25%;
-      left:10%;
+      max-height: 14%;
+      max-width: 18%;
+      top: 42%;
+      left: 15%;
     }
 
     .fish-img {
-      max-height: 16%;
-      max-width: 15%;
-      top: 45%;
+      max-height: 14%;
+      max-width: 14%;
+      top: 42%;
     }
 
+    /* ===== ՓՈՓՈԽՎԱԾ՝ bottom-img-ը ավելի վերև մոբայլում ===== */
     .bottom-img {
-      top: 40%;
-      max-height: 52%;
-      max-width: 78%;
+      top: 52%;            /* 40% → 52%՝ կախված դասավորությունից */
+      max-height: 42%;     /* 52% → 42% */
+      max-width: 72%;
     }
 
     .mermaid-img {
@@ -989,12 +993,13 @@
     }
 
     .party-title {
-      top: 35%;
+      top: 32%;
     }
 
+    /* ===== ՓՈՓՈԽՎԱԾ՝ details-ի վերին padding-ը և gap-ը կրճատված ===== */
     .details {
-      padding: 48px 14px 44px;
-      gap: 32px;
+      padding: 20px 14px 44px;   /* 48px → 20px */
+      gap: 20px;                 /* 32px → 20px */
     }
 
     .detail-cards {
@@ -1042,7 +1047,6 @@
   <!-- ===================== ԱՌԱՋԻՆ ՇԵՐՏ / COVER ԷԿՐԱՆ ===================== -->
   <div class="cover-screen" id="coverScreen">
 
-    <!-- ՏԵՍԱՆՅՈՒԹԸ ՈՐՊԵՍ ՖՈՆ -->
     <video class="cover-video" autoplay muted playsinline preload="auto">
       <source src="Syu_20260912182120.mp4" type="video/mp4">
     </video>
