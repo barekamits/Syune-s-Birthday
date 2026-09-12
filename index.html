@@ -11,7 +11,8 @@
   /* ===== ՏԵՂԱԿԱՆ ՖՈՆՏ (vrdznagir) ===== */
   @font-face {
     font-family: 'Vrdznagir';
-    src: url('vrdznagir.օtf') format('opentype');
+    src: url('vrdznagir.otf') format('opentype');
+    font-display: swap;
   }
 
   * {
@@ -105,6 +106,7 @@
   }
 
   /* ===== ՍԵՂՄԵՔ ԱՅՍՏԵՂ ԳՐԱՌՈՒՄԸ (vrdznagir ֆոնտով) ===== */
+  /* Սկզբում թաքնված է, ցուցադրվում է վիդեոյի ավարտից հետո JS-ով */
   .tap-hint {
     position: relative;
     z-index: 3;
@@ -120,14 +122,15 @@
       drop-shadow(0 2px 3px rgba(40,0,40,0.7))
       drop-shadow(0 0 12px rgba(255,210,120,0.85))
       drop-shadow(0 0 24px rgba(80,0,80,0.55));
-    animation: tapPulse 2.2s ease-in-out infinite;
     pointer-events: none;
     user-select: none;
+
+    opacity: 0;
+    transition: opacity 0.8s ease;
   }
 
-  @keyframes tapPulse {
-    0%, 100% { transform: scale(1); opacity: 0.95; }
-    50%      { transform: scale(1.06); opacity: 1; }
+  .tap-hint.show {
+    opacity: 1;
   }
 
   .cover-screen.opened {
@@ -252,7 +255,6 @@
       opacity: 1 !important;
       transform: none !important;
     }
-    .tap-hint { animation: none; }
   }
 
   .party-title .welcome {
@@ -1208,12 +1210,35 @@
   <script>
     const coverScreen = document.getElementById('coverScreen');
     const coverVideo = document.querySelector('.cover-video');
+    const tapHint = document.querySelector('.tap-hint');
 
     document.documentElement.classList.add('no-scroll');
     document.body.classList.add('no-scroll');
 
+    // Ցուցադրել "Սեղմեք այստեղ" տեքստը միայն վիդեոյի ավարտից հետո
+    if (coverVideo) {
+      coverVideo.addEventListener('ended', () => {
+        tapHint.classList.add('show');
+      });
+
+      // եթե վիդեոն չի կարողանում նվագարկվել, ցույց տանք անմիջապես
+      coverVideo.addEventListener('error', () => {
+        tapHint.classList.add('show');
+      });
+
+      // անվտանգության ցանց՝ 15 վրկ հետո ամեն դեպքում ցույց տանք
+      setTimeout(() => {
+        if (!tapHint.classList.contains('show')) {
+          tapHint.classList.add('show');
+        }
+      }, 15000);
+    } else {
+      tapHint.classList.add('show');
+    }
+
     function openInvitation() {
       if (coverScreen.classList.contains('opened')) return;
+      if (!tapHint.classList.contains('show')) return; // թույլ չտալ բացել մինչև տեքստը հայտնվի
       coverScreen.classList.add('opened');
       document.getElementById('heroSection').classList.add('reveal');
       document.documentElement.classList.remove('no-scroll');
