@@ -20,36 +20,34 @@
   }
 
   body {
-    background-image: url("https://uploads.onecompiler.io/43gpeysj6/1788476539124/bg.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-color: #06182e; /* fallback գույն */
     min-height: 100vh;
     min-height: 100dvh;
     position: relative;
     overflow-x: hidden;
   }
 
-  /* background-attachment:fixed is unreliable on iOS/Android browsers —
-     it can make the image jump, disappear, or repaint on every scroll frame,
-     which is the single biggest cause of a page looking "broken" on mobile.
-     Switch to normal scrolling on touch-sized viewports. */
-  @media (max-width: 768px) {
-    body {
-      background-attachment: scroll;
-    }
-  }
-
-  .overlay {
+  /* ===== ԱՄԲՈՂՋ ԷԿՐԱՆԻ ՖԻՔՍԵԴ ՖՈՆ ===== */
+  .bg-fixed {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.35);
-    z-index: 0;
+    background-image: url("bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -2;
     pointer-events: none;
+  }
+
+  /* Մուգ շերտ՝ բովանդակության ընթեռնելիության համար */
+  .bg-fixed::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
   }
 
   /* ===================== ԱՌԱՋԻՆ ՇԵՐՏ / COVER ԷԿՐԱՆ ===================== */
@@ -92,14 +90,10 @@
     pointer-events: none;
   }
 
-  /* Մուգ շերտ տեսանյութի վրա՝ տեքստը ընթեռնելի դարձնելու համար */
   .cover-screen::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0, 0, 0, 0.4);
     z-index: 1;
     pointer-events: none;
@@ -202,7 +196,8 @@
   /* ===================== ԵՐԿՐՈՐԴ ՀԻՄՆԱԿԱՆ ԲՈՎԱՆԴԱԿՈՒԹՅՈՒՆ ===================== */
   .hero {
     width: 100%;
-    height: 50vh;
+    height: 100vh;
+    height: 100dvh;
     background-image: url("https://uploads.onecompiler.io/43gpeysj6/1788472339273/2ndlay.jpg");
     background-size: cover;
     background-position: center;
@@ -214,10 +209,7 @@
 
   .hero-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0, 0, 0, 0.25);
   }
 
@@ -374,6 +366,9 @@
     flex-direction: column;
     align-items: center;
     gap: 40px;
+    background: rgba(6, 24, 46, 0.55); /* կիսաթափանցիկ մուգ ֆոն՝ ամբողջ էկրանով */
+    backdrop-filter: blur(2px);
+    min-height: 100vh;
   }
 
   .details-heading {
@@ -421,7 +416,7 @@
   .detail-card {
     flex: 1 1 220px;
     max-width: 260px;
-    background: rgba(6, 28, 46, 0.45);
+    background: rgba(6, 28, 46, 0.55);
     border: 1px solid rgba(255, 224, 138, 0.35);
     border-radius: 18px;
     padding: 26px 20px;
@@ -472,7 +467,7 @@
     overflow: hidden;
     border: 1px solid rgba(255, 224, 138, 0.35);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-    background: rgba(6, 28, 46, 0.45);
+    background: rgba(6, 28, 46, 0.55);
 
     display: grid;
     grid-template-rows: 0fr;
@@ -552,7 +547,7 @@
   .dresscode-card {
     width: 100%;
     max-width: 640px;
-    background: rgba(6, 28, 46, 0.45);
+    background: rgba(6, 28, 46, 0.55);
     border: 1px solid rgba(255, 224, 138, 0.35);
     border-radius: 20px;
     padding: 28px 24px;
@@ -619,7 +614,7 @@
   .rsvp-card {
     width: 100%;
     max-width: 520px;
-    background: rgba(6, 28, 46, 0.45);
+    background: rgba(6, 28, 46, 0.55);
     border: 1px solid rgba(255, 224, 138, 0.35);
     border-radius: 20px;
     padding: 32px 28px;
@@ -669,7 +664,7 @@
     border-radius: 10px;
     padding: 12px 14px;
     font-family: 'Poppins', sans-serif;
-    font-size: 16px; /* >=16px prevents iOS Safari from auto-zooming into the field */
+    font-size: 16px;
     color: #fdfaf0;
     outline: none;
     transition: border-color 0.25s ease, background 0.25s ease;
@@ -830,7 +825,7 @@
   }
 
   .agenda-body {
-    background: rgba(6, 28, 46, 0.45);
+    background: rgba(6, 28, 46, 0.55);
     border: 1px solid rgba(255, 224, 138, 0.35);
     border-radius: 16px;
     padding: 16px 20px;
@@ -949,8 +944,6 @@
   .bubble:nth-child(29) { left: 78%; width: 25px; height: 25px; animation-duration: 18.8s; animation-delay: -13.6s; --w: 22px; --op: 0.4; }
   .bubble:nth-child(30) { left: 91%; width: 12px; height: 12px; animation-duration: 10.6s; animation-delay: -5.2s; --w: -12px; --op: 0.6; }
 
-  /* Fewer bubbles on phones: lighten the animation/paint load so the
-     page doesn't stutter or feel "broken" on lower-powered devices. */
   @media (max-width: 480px) {
     .bubble:nth-child(3n) {
       display: none;
@@ -968,7 +961,8 @@
     }
 
     .hero {
-      height: 55vh;
+      height: 100vh;
+      height: 100dvh;
     }
 
     .crab-img {
@@ -1042,16 +1036,13 @@
 </head>
 <body>
 
+  <!-- ===== ԱՄԲՈՂՋ ԷԿՐԱՆԻ ՖԻՔՍԵԴ ՖՈՆ ===== -->
+  <div class="bg-fixed"></div>
+
   <!-- ===================== ԱՌԱՋԻՆ ՇԵՐՏ / COVER ԷԿՐԱՆ ===================== -->
   <div class="cover-screen" id="coverScreen">
 
     <!-- ՏԵՍԱՆՅՈՒԹԸ ՈՐՊԵՍ ՖՈՆ -->
-    <!-- NOTE: this points at a local file ("Jrahars_20260911213813.mp4") that
-         isn't hosted anywhere. On a real device that request 404s and the
-         cover screen falls back to the plain #06182e background, no video.
-         Upload the clip somewhere public (your own hosting, or the same
-         uploads.onecompiler.io bucket the other images use) and put that
-         full https:// URL here. -->
     <video class="cover-video" autoplay muted playsinline preload="auto">
       <source src="Syun_20260912173115.mp4" type="video/mp4">
     </video>
@@ -1072,10 +1063,7 @@
   <!-- ===================== ԵՐԿՐՈՐԴ ՀԻՄՆԱԿԱՆ ԲՈՎԱՆԴԱԿՈՒԹՅՈՒՆ ===================== -->
   <div class="hero" id="heroSection">
     <div class="hero-overlay"></div>
-    <img src="https://uploads.onecompiler.io/43gpeysj6/1788473794061/syune.png" alt="Ջրահարս" class="mermaid-img">
-    <!-- NOTE: same issue as the video — "kamar1.png" is a local filename,
-         not a real URL, so this image won't load on a phone (or anywhere
-         outside your editor). Replace with a hosted https:// link. -->
+    <img src="syune.png" alt="Ջրահարս" class="mermaid-img">
     <img src="kamar1.png" alt="Ներքևի նկար" class="bottom-img">
 
     <div class="party-title">
@@ -1084,8 +1072,8 @@
       <span class="sub-line">BIRTHDAY PARTY</span>
     </div>
 
-    <img src="https://uploads.onecompiler.io/43gpeysj6/1788474969239/crab.png" alt="Կրաբ" class="crab-img">
-    <img src="https://uploads.onecompiler.io/43gpeysj6/1788474972339/dzukik.png" alt="Ձկնիկ" class="fish-img">
+    <img src="crab.png" alt="Կրաբ" class="crab-img">
+    <img src="dzukik.png" alt="Ձկնիկ" class="fish-img">
   </div>
 
 
@@ -1138,7 +1126,7 @@
           src="https://www.google.com/maps?q=Yerevan,+Armenia&output=embed">
         </iframe>
         <div class="map-footer">
-          <span>[Հասցեն  այստեղ]</span>
+          <span>[Հասցեն այստեղ]</span>
           <a href="https://www.google.com/maps/search/?api=1&query=Yerevan,+Armenia" target="_blank" rel="noopener">Բացել Google Maps-ում</a>
         </div>
       </div>
@@ -1154,21 +1142,11 @@
       <div class="dresscode-desc">Սիրելի հյուրեր, <br>
 Սյունէի հեքիաթային օրվա գույներն ու տրամադրությունն ամբողջացնելու համար ուրախ կլինենք Ձեզ տեսնել հետևյալ գունային երանգներով։</div>
       <div class="swatches">
-        <div class="swatch">
-          <span class="swatch-color" style="background:#0f5c72;"></span>
-        </div>
-        <div class="swatch">
-          <span class="swatch-color" style="background:#2fb8a6;"></span>
-        </div>
-        <div class="swatch">
-          <span class="swatch-color" style="background:#ffe08a;"></span>
-        </div>
-        <div class="swatch">
-          <span class="swatch-color" style="background:#fdfaf0;"></span>
-        </div>
-        <div class="swatch">
-          <span class="swatch-color" style="background:#ff8a65;"></span>
-        </div>
+        <div class="swatch"><span class="swatch-color" style="background:#0f5c72;"></span></div>
+        <div class="swatch"><span class="swatch-color" style="background:#2fb8a6;"></span></div>
+        <div class="swatch"><span class="swatch-color" style="background:#ffe08a;"></span></div>
+        <div class="swatch"><span class="swatch-color" style="background:#fdfaf0;"></span></div>
+        <div class="swatch"><span class="swatch-color" style="background:#ff8a65;"></span></div>
       </div>
     </div>
 
@@ -1209,9 +1187,8 @@
         </div>
         <div class="agenda-body">
           <div class="agenda-time">[17:15]</div>
-          <div class="agenda-title">Լողավազան </div>
-          <div class="agenda-desc">Սիրելի ծնողներ, լողավազանի համար խնդրում ենք բալիկների հետ ունենալ համապատասխան հագուստ։
-</div>
+          <div class="agenda-title">Լողավազան</div>
+          <div class="agenda-desc">Սիրելի ծնողներ, լողավազանի համար խնդրում ենք բալիկների հետ ունենալ համապատասխան հագուստ։</div>
         </div>
       </div>
 
@@ -1242,7 +1219,7 @@
     <!-- ===================== RSVP ===================== -->
     <div class="details-heading">
       <span class="you-are-invited">RSVP</span>
-      <h2> Կհանդիպենք շուտով</h2>
+      <h2>Կհանդիպենք շուտով</h2>
     </div>
 
     <div class="rsvp-card" id="rsvpCard">
@@ -1258,16 +1235,11 @@
           <label>ՄԱՍՆԱԿՑՈՒԹՅՈՒՆ</label>
           <div class="rsvp-toggle">
             <input type="radio" id="rsvpYes" name="rsvpAnswer" value="Այո, կգամ" checked>
-            <label class="rsvp-option" for="rsvpYes"> Իհարկե, կգամ</label>
+            <label class="rsvp-option" for="rsvpYes">Իհարկե, կգամ</label>
 
             <input type="radio" id="rsvpNo" name="rsvpAnswer" value="Ոչ, չեմ կարող">
-            <label class="rsvp-option" for="rsvpNo"> Ցավոք, չեմ կարող</label>
+            <label class="rsvp-option" for="rsvpNo">Ցավոք, չեմ կարող</label>
           </div>
-        </div>
-
-        <div class="rsvp-field rsvp-guests-field show" id="rsvpGuestsField">
-          <label for="rsvpGuests">Հյուրերի քանակ</label>
-          <input type="number" id="rsvpGuests" name="rsvpGuests" min="1" value="1">
         </div>
 
         <button type="submit" class="rsvp-submit">ՀԱՍՏԱՏԵԼ</button>
@@ -1276,8 +1248,6 @@
     </div>
 
   </section>
-
-  <div class="overlay"></div>
 
   <div class="bubbles">
     <span class="bubble"></span><span class="bubble"></span><span class="bubble"></span>
@@ -1307,7 +1277,6 @@
       document.documentElement.classList.remove('no-scroll');
       document.body.classList.remove('no-scroll');
 
-      // Կանգնեցնում ենք տեսանյութը, որ ռեսուրս չծախսի
       if (coverVideo) {
         coverVideo.pause();
       }
@@ -1321,14 +1290,10 @@
       }
     });
 
-    // Also let a tap/scroll anywhere on the cover open it — on phones people
-    // often tap the screen itself rather than the small hint button, and
-    // without this the page can feel "stuck" and broken on the first screen.
     coverScreen.addEventListener('click', openInvitation);
     window.addEventListener('wheel', openInvitation, { passive: true, once: true });
     window.addEventListener('touchmove', openInvitation, { passive: true, once: true });
 
-    // Անիմացիա՝ մանրամասների բլոկների համար
     const animatedEls = document.querySelectorAll('.details-heading, .detail-card, .agenda-item, .dresscode-card, .rsvp-card');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1340,7 +1305,6 @@
     }, { threshold: 0.2 });
     animatedEls.forEach(el => observer.observe(el));
 
-    // Քարտեզ
     const locationCard = document.getElementById('locationCard');
     const mapCard = document.getElementById('mapCard');
     locationCard.addEventListener('click', () => {
@@ -1357,7 +1321,6 @@
       }
     });
 
-    // ===================== RSVP =====================
     const RSVP_WHATSAPP_NUMBER = "37400000000";
 
     const rsvpForm = document.getElementById('rsvpForm');
