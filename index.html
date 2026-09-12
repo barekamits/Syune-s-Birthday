@@ -8,6 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 <style>
+  /* ===== ՏԵՂԱԿԱՆ ՖՈՆՏ (vrdznagir) ===== */
+  @font-face {
+    font-family: 'Vrdznagir';
+    src: url('vrdznagir.օtf') format('opentype');
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -96,6 +102,32 @@
     background: rgba(0, 0, 0, 0.4);
     z-index: 1;
     pointer-events: none;
+  }
+
+  /* ===== ՍԵՂՄԵՔ ԱՅՍՏԵՂ ԳՐԱՌՈՒՄԸ (vrdznagir ֆոնտով) ===== */
+  .tap-hint {
+    position: relative;
+    z-index: 3;
+    font-family: 'Vrdznagir', 'Great Vibes', cursive, sans-serif;
+    font-size: clamp(28px, 8vw, 56px);
+    letter-spacing: 3px;
+    color: #fffdf5;
+    background: linear-gradient(180deg, #fffbea 0%, #ffe08a 45%, #ffb84d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter:
+      drop-shadow(0 2px 3px rgba(40,0,40,0.7))
+      drop-shadow(0 0 12px rgba(255,210,120,0.85))
+      drop-shadow(0 0 24px rgba(80,0,80,0.55));
+    animation: tapPulse 2.2s ease-in-out infinite;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @keyframes tapPulse {
+    0%, 100% { transform: scale(1); opacity: 0.95; }
+    50%      { transform: scale(1.06); opacity: 1; }
   }
 
   .cover-screen.opened {
@@ -220,6 +252,7 @@
       opacity: 1 !important;
       transform: none !important;
     }
+    .tap-hint { animation: none; }
   }
 
   .party-title .welcome {
@@ -767,9 +800,6 @@
       opacity: 1;
       transform: none;
     }
-    .scroll-hint {
-      animation: none;
-    }
   }
 
   /* --- Օվկիանոսի պղպջակներ --- */
@@ -857,8 +887,9 @@
 
   /* ===== ՄՈԲԱՅԼԻ ՀԱՄԱՐ ===== */
   @media (max-width: 480px) {
-    .scroll-hint {
-      bottom: 10%;
+    .tap-hint {
+      font-size: clamp(24px, 9vw, 40px);
+      letter-spacing: 2px;
     }
 
     .hero {
@@ -968,7 +999,9 @@
       <source src="Syu_20260912182120.mp4" type="video/mp4">
     </video>
 
-    <!-- Հեռացված են բոլոր տեքստերը և սեղմելու հուշումը -->
+    <!-- Սեղմեք այստեղ գրառումը (vrdznagir ֆոնտով) -->
+    <div class="tap-hint">ՍԵՂՄԵՔ ԱՅՍՏԵՂ</div>
+
   </div>
 
   <!-- ===================== HERO ԲԱԺԻՆ ===================== -->
@@ -1191,12 +1224,10 @@
       }
     }
 
-    // Ամբողջ cover էկրանը սեղմելի է
     coverScreen.addEventListener('click', openInvitation);
     window.addEventListener('wheel', openInvitation, { passive: true, once: true });
     window.addEventListener('touchmove', openInvitation, { passive: true, once: true });
 
-    // Անիմացիաների observer
     const animatedEls = document.querySelectorAll('.details-heading, .detail-card, .agenda-item, .dresscode-card, .rsvp-card');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
