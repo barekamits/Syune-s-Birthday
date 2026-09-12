@@ -20,7 +20,7 @@
   }
 
   body {
-    background-color: #06182e; /* fallback գույն */
+    background-color: #06182e;
     min-height: 100vh;
     min-height: 100dvh;
     position: relative;
@@ -42,7 +42,6 @@
     pointer-events: none;
   }
 
-  /* Մուգ շերտ՝ բովանդակության ընթեռնելիության համար */
   .bg-fixed::after {
     content: "";
     position: absolute;
@@ -50,7 +49,7 @@
     background: rgba(0, 0, 0, 0.35);
   }
 
-  /* ===================== ԱՌԱՋԻՆ ՇԵՐՏ / COVER ԷԿՐԱՆ ===================== */
+  /* ===================== COVER ԷԿՐԱՆ ===================== */
   html.no-scroll, body.no-scroll {
     overflow: hidden;
     height: 100%;
@@ -78,7 +77,6 @@
     transition: opacity 0.9s ease, transform 0.9s ease, visibility 0s linear 0s;
   }
 
-  /* ===== ՏԵՍԱՆՅՈՒԹԸ ՈՐՊԵՍ ՖՈՆ ===== */
   .cover-video {
     position: absolute;
     top: 0;
@@ -159,7 +157,6 @@
     margin-top: 16px;
   }
 
-  /* ===== «ՍԵՂՄԵՔ՝ ԲԱՑԵԼՈՒ ՀԱՄԱՐ» ԿՈՃԱԿԸ ===== */
   .scroll-hint {
     position: absolute;
     bottom: 12%;
@@ -193,7 +190,7 @@
     50% { transform: translateX(-50%) translateY(8px); }
   }
 
-  /* ===================== ԵՐԿՐՈՐԴ ՀԻՄՆԱԿԱՆ ԲՈՎԱՆԴԱԿՈՒԹՅՈՒՆ ===================== */
+  /* ===================== HERO ԲԱԺԻՆ ===================== */
   .hero {
     width: 100%;
     height: 100vh;
@@ -209,7 +206,6 @@
   .hero-overlay {
     position: absolute;
     inset: 0;
- 
   }
 
   .mermaid-img {
@@ -355,17 +351,17 @@
     margin-top: 2px;
   }
 
-  /* ===================== ՄԻՋՈՑԱՌՄԱՆ ՄԱՆՐԱՄԱՍՆԵՐ ===================== */
-
+  /* ===================== DETAILS ԲԱԺԻՆ ===================== */
+  /* Այժմ առանց առանձին ֆոնի, միասնական էջի ֆոնի հետ */
   .details {
     position: relative;
     z-index: 2;
-    padding: 64px 20px 60px;
+    padding: 40px 20px 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
-    min-height: 100vh;
+    gap: 36px;
+    min-height: auto;
   }
 
   .details-heading {
@@ -540,7 +536,6 @@
   }
 
   /* ===================== DRESS CODE ===================== */
-
   .dresscode-card {
     width: 100%;
     max-width: 640px;
@@ -607,7 +602,6 @@
   }
 
   /* ===================== RSVP ===================== */
-
   .rsvp-card {
     width: 100%;
     max-width: 520px;
@@ -756,7 +750,6 @@
   }
 
   /* ===================== ԾՐԱԳԻՐ / ՕՐԱԿԱՐԳ ===================== */
-
   .agenda {
     width: 100%;
     max-width: 640px;
@@ -947,7 +940,7 @@
     }
   }
 
-  /* ===================== ԲՋՋԱՅԻՆ ՀԱՄԱՐ (mobile) ===================== */
+  /* ===================== ՄՈԲԱՅԼԻ ՀԱՄԱՐ ===================== */
   @media (max-width: 480px) {
     .cover-content .cover-name {
       font-size: clamp(40px, 16vw, 66px);
@@ -957,16 +950,18 @@
       bottom: 10%;
     }
 
+    /* Hero-ը՝ ճշգրիտ էկրանի բարձրությամբ */
     .hero {
-      height: 100vh;
       height: 100dvh;
+      min-height: 100dvh;
+      max-height: 100dvh;
     }
 
     .crab-img {
       max-height: 16%;
       max-width: 20%;
       top: 45%;
-      left:15%;
+      left: 15%;
     }
 
     .fish-img {
@@ -990,9 +985,10 @@
       top: 35%;
     }
 
+    /* Details-ը՝ ավելի կոմպակտ, մոտիկ hero-ին */
     .details {
-      padding: 48px 14px 44px;
-      gap: 5px;
+      padding: 20px 14px 40px;
+      gap: 24px;
     }
 
     .detail-cards {
@@ -1029,18 +1025,34 @@
     .rsvp-card {
       padding: 24px 18px;
     }
+
+    /* Heading-ների բացերը փոքրացնել */
+    .details-heading h2 {
+      font-size: clamp(28px, 8vw, 42px);
+    }
+  }
+
+  /* Շատ փոքր էկրանների համար */
+  @media (max-width: 360px) {
+    .details {
+      padding: 16px 12px 32px;
+      gap: 20px;
+    }
+
+    .detail-card {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
   }
 </style>
 </head>
 <body>
 
-  <!-- ===== ԱՄԲՈՂՋ ԷԿՐԱՆԻ ՖԻՔՍԵԴ ՖՈՆ ===== -->
   <div class="bg-fixed"></div>
 
-  <!-- ===================== ԱՌԱՋԻՆ ՇԵՐՏ / COVER ԷԿՐԱՆ ===================== -->
+  <!-- ===================== COVER ԷԿՐԱՆ ===================== -->
   <div class="cover-screen" id="coverScreen">
 
-    <!-- ՏԵՍԱՆՅՈՒԹԸ ՈՐՊԵՍ ՖՈՆ -->
     <video class="cover-video" autoplay muted playsinline preload="auto">
       <source src="Syu_20260912182120.mp4" type="video/mp4">
     </video>
@@ -1058,7 +1070,7 @@
     </div>
   </div>
 
-  <!-- ===================== ԵՐԿՐՈՐԴ ՀԻՄՆԱԿԱՆ ԲՈՎԱՆԴԱԿՈՒԹՅՈՒՆ ===================== -->
+  <!-- ===================== HERO ԲԱԺԻՆ ===================== -->
   <div class="hero" id="heroSection">
     <div class="hero-overlay"></div>
     <img src="https://uploads.onecompiler.io/43gpeysj6/1788473794061/syune.png" alt="Ջրահարս" class="mermaid-img">
@@ -1074,8 +1086,7 @@
     <img src="dzukik.png" alt="Ձկնիկ" class="fish-img">
   </div>
 
-
-  <!-- ===================== ՄԻՋՈՑԱՌՄԱՆ ՄԱՆՐԱՄԱՍՆԵՐ ===================== -->
+  <!-- ===================== DETAILS ԲԱԺԻՆ ===================== -->
   <section class="details">
 
     <div class="details-heading">
@@ -1148,7 +1159,7 @@
       </div>
     </div>
 
-    <!-- ===================== ԾՐԱԳԻՐ / ՕՐԱԿԱՐԳ ===================== -->
+    <!-- ===================== ՕՐԱԿԱՐԳ ===================== -->
     <div class="details-heading">
       <span class="you-are-invited">ՕՐԱԿԱՐԳ</span>
       <h2>Ինչ է սպասվում</h2>
@@ -1329,9 +1340,9 @@
     rsvpRadios.forEach(radio => {
       radio.addEventListener('change', () => {
         if (radio.value.startsWith('Այո') && radio.checked) {
-          rsvpGuestsField.classList.add('show');
+          if (rsvpGuestsField) rsvpGuestsField.classList.add('show');
         } else if (radio.checked) {
-          rsvpGuestsField.classList.remove('show');
+          if (rsvpGuestsField) rsvpGuestsField.classList.remove('show');
         }
       });
     });
@@ -1342,7 +1353,8 @@
       const name = document.getElementById('rsvpName').value.trim();
       const answer = rsvpForm.querySelector('input[name="rsvpAnswer"]:checked').value;
       const isComing = answer.startsWith('Այո');
-      const guests = isComing ? document.getElementById('rsvpGuests').value : null;
+      const guestsInput = document.getElementById('rsvpGuests');
+      const guests = isComing && guestsInput ? guestsInput.value : null;
 
       let message = `Ողջույն! Ես՝ ${name}, ${answer.toLowerCase()} ծննդյան երեկույթին։`;
       if (isComing && guests) {
@@ -1357,9 +1369,9 @@
       rsvpStatus.textContent = 'Շնորհակալություն՝ WhatsApp-ը կբացվի հաստատված պատասխանով, պարզապես ուղարկիր հաղորդագրությունը 🙂';
       rsvpStatus.classList.add('show');
       rsvpForm.reset();
-      rsvpGuestsField.classList.add('show');
+      if (rsvpGuestsField) rsvpGuestsField.classList.add('show');
     });
   </script>
 
-</body> 
+</body>
 </html>
