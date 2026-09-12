@@ -952,11 +952,12 @@
 
     /* Hero-ը՝ ճշգրիտ էկրանի բարձրությամբ */
  .hero {
-    height: 100vh;        /* fallback հին բրաուզերների համար */
-    height: 100svh;       /* Safari-ի հիմնական լուծումը */
-    max-height: 100svh;
-    min-height: 100svh;
+.hero {
+    height: auto;
+    min-height: 70svh;   /* կամ ինչքան իրականում պետք է */
+    max-height: none;
   }
+}
 
     .crab-img {
       max-height: 16%;
